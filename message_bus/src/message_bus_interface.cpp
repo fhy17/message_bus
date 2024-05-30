@@ -16,13 +16,15 @@
 //     }
 // }
 
+#ifdef __cplusplus
 extern "C" {
+#endif
 
 static MessageBus* bus = nullptr;
 
-void initializeMessageBus() { bus = &MessageBus::getInstance(); }
+void init() { bus = &MessageBus::getInstance(); }
 
-void destroyMessageBus() { bus = nullptr; }
+void uninit() { bus = nullptr; }
 
 void subscribe(const char* topic, Callback callback) {
     if (bus) {
@@ -35,7 +37,10 @@ void publish(const char* topic, const char* message, const size_t len) {
         bus->publish(topic, std::string(message, len));
     }
 }
-}
+
+#ifdef __cplusplus
+}  // extern "C"
+#endif
 
 // C++ 类的实现
 #ifdef SYNC_MESSAGE_BUS

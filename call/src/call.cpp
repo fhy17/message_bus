@@ -16,7 +16,7 @@ int main() {
     }
     using message_bus_init_type = void();
     using message_bus_uninit_type = void();
-    message_bus_ptr->call<message_bus_init_type>("initializeMessageBus");
+    message_bus_ptr->call<message_bus_init_type>("init");
 
     // init receiver dll
     file = curr_path + "\\receiver.dll";
@@ -60,7 +60,7 @@ int main() {
 
     // uninit message bus dll
     using message_bus_uninit_type = void();
-    message_bus_ptr->call<message_bus_uninit_type>("destroyMessageBus");
+    message_bus_ptr->call<message_bus_uninit_type>("uninit");
 
     return 0;
 }
