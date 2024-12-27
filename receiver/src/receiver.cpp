@@ -3,22 +3,22 @@
 #include "dir_opt.h"
 #include "dll_proxy.h"
 
-// #include <iostream>
-// #include <Windows.h>
-
 namespace Receiver {
 typedef void (*SubscribeFunc)(const char*, void (*)(const char*));
 
 static DllProxyPtr receiver_ptr = nullptr;
 
-void receiveMessageFromBus(const char* message) { std::cout << "Received message: " << message << std::endl; }
+void receiveMessageFromBus(const char* message, size_t len) {
+    // std::cout << "received at " << time(0) << std::endl;
+    std::cout << "receive: " << message << ", len: " << len << std::endl;
+}
 
 extern "C" RECEIVER_API void init() {
     auto curr_path = getCurrentModPath();
     auto file = curr_path + "\\message_bus.dll";
     receiver_ptr = std::make_shared<DllProxy>(file);
     if (receiver_ptr) {
-        using type = void(const char*, void (*)(const char*));
+        using type = void(const char*, void (*)(const char*, size_t));
         receiver_ptr->call<type>("subscribe", "topic1", receiveMessageFromBus);
     }
 }

@@ -3,7 +3,7 @@
 project(message_bus VERSION 1.0.0.0)
 
 add_definitions(-DMESSAGE_BUS_EXPORTS)
-# add_definitions(-DSYNC_MESSAGE_BUS)
+# add_definitions(-DSYNC_MESSAGE_BUS) // enable synchronous, default is asynchronous
 
 # add include directory
 include_directories(

@@ -10,7 +10,6 @@ add_definitions(-DBASE_TEMPLATE)
 # add include directory
 include_directories(
     ${CMAKE_SOURCE_DIR}/inc
-    ${CMAKE_SOURCE_DIR}/export/include
     ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_SOURCE_DIR}/dir_opt/include
 )

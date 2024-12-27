@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <thread>
 
 int main() {
     auto curr_path = getCurrentModPath();
@@ -43,16 +44,18 @@ int main() {
     using sender_type = void(const char*, const size_t);
     sender_ptr->call<sender_type>("sendMessageToBus", msg.c_str(), msg.length());
     for (int i = 0; i < 11; ++i) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
         std::string s = "test " + std::to_string(i);
         sender_ptr->call<sender_type>("sendMessageToBus", s.c_str(), s.length());
     }
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     // uninit sender dll
     using sender_uninit_type = void();
     sender_ptr->call<sender_uninit_type>("uninit");
 
     // wait for the user to press any key
-    std::cin.get();
+    // std::cin.get();
 
     // uninit receiver dll
     using receiver_uninit_type = void();
